@@ -8,7 +8,7 @@ public class Main {
 
     public static void main(String[] args){
         int opcion;
-
+        int value = 0;
         // LECTURA ARCHIVO
         CSVFile archivo = new CSVFile();
         archivo.leerArchivo("src/main/resources/CSVTEST.csv");
