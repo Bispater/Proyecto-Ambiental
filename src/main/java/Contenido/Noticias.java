@@ -1,6 +1,5 @@
-package org.example;
+package Contenido;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Scanner;
 
 public class Noticias {

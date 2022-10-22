@@ -1,6 +1,8 @@
-package org.example;
+package Usuarios;
 
-import java.util.ArrayList;
+import Contenido.Noticias;
+import Contenido.PuntoReciclaje;
+
 import java.util.Scanner;
 public class Usuario extends PersonaVirtual {
     private String Ciudad;

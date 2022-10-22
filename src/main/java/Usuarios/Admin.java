@@ -1,4 +1,7 @@
-package org.example;
+package Usuarios;
+import Contenido.Noticias;
+import Contenido.PuntoReciclaje;
+
 import java.util.Scanner;
 import java.util.ArrayList;
 
