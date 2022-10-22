@@ -1,4 +1,4 @@
-package org.example;
+package Contenido;
 import java.util.Scanner;
 import java.util.ArrayList;
 public class PuntoReciclaje {

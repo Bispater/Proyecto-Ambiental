@@ -1,4 +1,4 @@
-package org.example;
+package Usuarios;
 
 import java.util.ArrayList;
 import java.util.Scanner;
