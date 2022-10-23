@@ -4,6 +4,7 @@ import Manejo_Csv.CSVManage;
 import Usuarios.Admin;
 import Usuarios.Usuario;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
@@ -13,11 +14,15 @@ public class Main {
         int opcion;
         int value = 0;
         // LECTURA ARCHIVO
+
         CSVFile archivo = new CSVFile();
         archivo.leerArchivo("src/main/resources/CSVTEST.csv");
         CSVManage ob = new CSVManage();
         String[] header = { "Nombre", "Apellido"};
         ob.writeCSV("src/main/resources/CSVTEST.csv", header);
+        ArrayList<Admin>admins = new ArrayList<>();
+
+
 
         entrada = new Scanner(System.in);
 
@@ -32,24 +37,32 @@ public class Main {
 
             //Prueba
             Admin adminDefecto = new Admin(); //Admin por defecto para poder ingresar
+
             Usuario usuarioDefecto = new Usuario();
             //administradores.add(adm1);
             //PuntoReciclaje pto1 = new PuntoReciclaje();
             //pto1.CrearPuntoReciclaje();
             //puntosReciclaje.add(pto1);
             //-----------------
+            try {
+                switch (opcion) {
+                    case 1:
+                        adminDefecto.MenuAdministrador();
+                        break;
+                    case 2:
+                        usuarioDefecto.MenuUsuario();
+                        break;
+                    case 0:
+                        return;
+                    default:
+                        throw new Exception("No se puede ejecutar esa opcion ");
 
-            switch(opcion)
-            {
-                case 1 :
-                    adminDefecto.MenuAdministrador();
-                    break ;
-                case 2 :
-                    usuarioDefecto.MenuUsuario();
-                    break;
-                case 0 :
+                }
+            }catch(Exception e )
+                {
+                    e.printStackTrace();
                     return;
-            }
+                }
         }while(true);
     }
 }

@@ -10,7 +10,7 @@ public class Usuario extends PersonaVirtual {
     Scanner entrada = new Scanner(System.in);
     //Constructor
     public Usuario(){
-        super("",0,"");
+        super("","");
         this.Ciudad="";
     }
 
@@ -22,50 +22,102 @@ public class Usuario extends PersonaVirtual {
         this.Ciudad = Ciudad;
     }
 
+
+    public boolean ValidarPersona() {
+
+        if(!this.Ciudad.matches("[A-Z][a-zA-Z]*") ) return false ;
+
+        if(!getRut().matches("[0-9]*[-'][0-9]")) return false ;
+
+        if(!getNombre().matches("([a-zA-Z]*[ ']+[a-zA-Z]*)*")) return false ;
+
+        return true ;
+
+    }
+    public void CrearPersona() {
+        int id, contFail = 0;
+        int flag = 0;
+        String Nombre, Rut;
+        //Valdiacion de formato de datos
+        System.out.print("Inserte nombre natural:");
+        Nombre = entrada.nextLine();
+        while (!Nombre.matches("([a-zA-Z]*[ ']+[a-zA-Z]*)*")) {
+            contFail++;
+            if (contFail == 5) {
+                System.out.println("Creacion fallida");
+                flag = 1;
+                return;
+            }
+            System.out.println("El dato es incorrecto, debe escribir solo letras (nombre y apellido separados)");
+            System.out.print("Inserte nombre de administrador: ");
+            Nombre = entrada.nextLine();
+        }
+        if (flag != 1) this.setNombre(Nombre);
+
+        System.out.print("Inserte su Rut:");
+        contFail = 0;
+        flag = 0;
+        Rut = entrada.nextLine();
+        while (!Rut.matches("[0-9]*[-'][0-9]")) {
+            contFail++;
+            if (contFail == 5) {
+                System.out.println("Creacion fallida");
+                flag = 1;
+                return;
+            }
+            System.out.println("Dato incorrecto, debe escribir numeros con guion y digito verificador");
+            System.out.print("Inserte su Rut:");
+            Rut = entrada.nextLine();
+        }
+        if (flag != 1) {
+            setRut(Rut);
+        }
+    }
+
+
+
     //Comportamientos y metodos
     public void MenuUsuario(){
         int opcion;
-        String ciudad;
-        Usuario UsuarioActual = new Usuario();
         PuntoReciclaje ptoReciclaje = new PuntoReciclaje();
         Noticias noticias = new Noticias();
-
-        System.out.print("Ingrese su nombre: ");
-        UsuarioActual.setNombre(entrada.nextLine());
-
-        System.out.print("Ingrese la ciudad donde se encuentra: ");
-        ciudad = entrada.nextLine();
-        while(!ciudad.matches("[A-Z][a-zA-Z]*")){
-            System.out.println("- Formato incorrecto. Ingrese solo letras, con la primera mayuscula\n");
-            System.out.print("Ingrese la ciudad donde se encuentra: ");
-            ciudad = entrada.nextLine();
-        }
-        UsuarioActual.setCiudad(ciudad);
-
+        ValidarPersona();
+        //Muestra de opciones del usuario
         System.out.println("ELIJA UNA OPCION:");
         System.out.println("1) Puntos de reciclaje cercanos\n2) Presentar noticias\n3) Consultar puntos de reciclaje por ciudad\n4) Presione 0 para salir");
         System.out.print("OPCION:");
         opcion = entrada.nextInt();
-
-        switch (opcion){
-            case 0 :
-                return;
-            case 1 :
-                ptoReciclaje.PtoReciclajeCercano(ciudad); //Busca puntosR de acuerdo a la ciudad ingresada
-                break;
-            case 2 :
-                noticias.PresentarNoticia();
-                break;
-            case 3 :
-                System.out.print("Ingrese la ciudad donde desea buscar: ");
-                ciudad = entrada.nextLine();
-                while(!ciudad.matches("[A-Z][a-zA-Z]*")){
-                    System.out.println("- Formato incorrecto. Ingrese solo letras, con la primera mayuscula\n");
+        try{
+            switch (opcion){
+                case 0 :
+                    return;
+                case 1 :
+                    ptoReciclaje.PtoReciclajeCercano(this.Ciudad); //Busca puntosR de acuerdo a la ciudad ingresada
+                    break;
+                case 2 :
+                    noticias.PresentarNoticia();
+                    break;
+                case 3 :
                     System.out.print("Ingrese la ciudad donde desea buscar: ");
-                    ciudad = entrada.nextLine();
-                }
-                ptoReciclaje.PtoReciclajeCercano(ciudad); //Busca puntosR de acuerdo a la ciudad ingresada
-                break;
+                    String ciudad = entrada.nextLine();
+                    while(!ciudad.matches("[A-Z][a-zA-Z]*")){
+                        System.out.println("- Formato incorrecto. Ingrese solo letras, con la primera mayuscula\n");
+                        System.out.print("Ingrese la ciudad donde desea buscar: ");
+                        ciudad = entrada.nextLine();
+                    }
+                    ptoReciclaje.PtoReciclajeCercano(ciudad); //Busca puntosR de acuerdo a la ciudad ingresada
+                    break;
+                 default :
+                     throw new Exception("No se puede ejecutar esa opcion ");
+
+
+            }
+
+        }catch(Exception e)
+        {
+         e.printStackTrace();
+
         }
+
     }
 }
