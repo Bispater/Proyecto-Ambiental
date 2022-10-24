@@ -1,6 +1,8 @@
 package Usuarios;
 import Contenido.Noticias;
 import Contenido.PuntoReciclaje;
+import Manejo_Csv.CSVFile;
+import Manejo_Csv.CSVManage;
 
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -193,6 +195,16 @@ public class Admin extends PersonaVirtual {
     }
 
     public void MenuAdministrador() {
+
+        //Lectura Texto Admins
+        CSVFile archivoAdmins = new CSVFile();
+        archivoAdmins.leerArchivo("src/main/resources/csvadmins.csv");
+        CSVManage ob = new CSVManage();
+        String[] header = { "Nombre", "Rut" , "id" , "Contraseña"};
+        ob.writeCSV("src/main/resources/csvadmins.csv", header);
+
+
+
         Noticias NoticiaNueva = new Noticias();
         PuntoReciclaje ptoNuevo = new PuntoReciclaje();
         Admin newAdmin = new Admin("Fabian", 4, "123");
