@@ -203,8 +203,6 @@ public class Admin extends PersonaVirtual {
         String[] header = { "Nombre", "Rut" , "id" , "Contraseña"};
         ob.writeCSV("src/main/resources/csvadmins.csv", header);
 
-
-
         Noticias NoticiaNueva = new Noticias();
         PuntoReciclaje ptoNuevo = new PuntoReciclaje();
         Admin newAdmin = new Admin("Fabian", 4, "123");
