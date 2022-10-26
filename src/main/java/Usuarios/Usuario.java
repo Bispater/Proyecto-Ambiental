@@ -7,9 +7,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 public class Usuario extends PersonaVirtual {
     private String Ciudad;
-    ArrayList<Usuario> usuariosRegistrados;
+    private String contrasenia ;
 
-    String contrasenia ;
+
 
     //El login de Usuarios sera mediante el rut y una contrasenia
     Scanner entrada = new Scanner(System.in);
@@ -17,6 +17,12 @@ public class Usuario extends PersonaVirtual {
     public Usuario(){
         super("","");
         this.Ciudad="";
+        this.contrasenia="" ;
+    }
+    public Usuario(String nombre , String rut , String ciudad , String contrasenia ){
+        super(nombre,rut);
+        this.Ciudad=ciudad;
+        this.contrasenia=contrasenia ;
     }
 
     //Getters & Setters
@@ -28,25 +34,10 @@ public class Usuario extends PersonaVirtual {
     }
 
 
-    public boolean ValidarPersona() {
+    public boolean ValidarPersona(ArrayList<Usuario> usuarios) {
         int contFail = 0;
         int flag = 0 ;
-        System.out.println("Inserte nombre");
-        String nombre = entrada.nextLine();
-        while(!nombre.matches("([a-zA-Z]*[ ']+[a-zA-Z]*)*"))
-        {
-            contFail++;
-            if(contFail==5)
-            {
-                System.out.println("Creacion fallida");
-                flag = 1 ;
-                return false ;
-            }
-            System.out.println("El dato es incorrecto, debe escribir solo letras (nombre y apellido separados)");
-            System.out.print("Inserte nombre de administrador: ");
-            nombre = entrada.nextLine();
-        }
-        contFail = 0;
+
 
         System.out.println("Inserte rut");
         String rut = entrada.nextLine();
@@ -55,7 +46,7 @@ public class Usuario extends PersonaVirtual {
             contFail++;
             if(contFail ==5)
             {
-                System.out.println("Creacion fallida");
+                System.out.println("validacion fallida");
                 flag = 1 ;
                 return false ;
             }
@@ -64,34 +55,61 @@ public class Usuario extends PersonaVirtual {
              rut = entrada.nextLine();
         }
         contFail = 0;
-        System.out.println("Inserte ciudad donde vive");
-        String ciudad = entrada.nextLine();
-        while(!ciudad.matches("[A-Z][a-z]*") ) {
+
+       System.out.print("Ingrese su contraseña: ");
+       String contra = entrada.next();
+        while(!contra.matches("([a-zA-Z]*+[0-9]*+)*")){
             contFail++;
-            System.out.println("Formato incorrecto , ingrese con solo la primera letra mayuscula");
-            if(contFail ==5)
-            {
+            System.out.println("El dato es incorrecto, debe recibir al menos una letra y numero");
+
+            if(contFail == 5) {
 
                 System.out.println("Creacion fallida");
                 flag = 1 ;
                 return false ;
             }
-
-            System.out.println("Inserte ciudad donde vive");
-            ciudad = entrada.nextLine();
+            System.out.print("Ingrese nuevamente la  contraseña: ");
+            contra = entrada.next();
         }
-
-
-
-
-
+        if( !Buscarenusurios(rut , contra , usuarios))
+        {
+            return false ;
+        }
+        for(int i = 0 ; i < usuarios.size() ; i++) {
+                if(Buscarenusurios(usuarios.get(i).getRut() , usuarios.get(i).contrasenia , usuarios ))
+                {
+                  this.setNombre(usuarios.get(i).getNombre());
+                  this.setRut(usuarios.get(i).getRut());
+                  this.contrasenia = usuarios.get(i).contrasenia ;
+                  this.Ciudad = usuarios.get(i).Ciudad ;
+                }
+        }
         return true ;
 
     }
-    public void CrearPersona() {
+
+    public boolean Buscarenusurios(String rut , String contrasenia , ArrayList<Usuario> usuarios)
+    {
+        for(int i= 0 ; i< usuarios.size() ; i++)
+        {
+            if( usuarios.get(i).getRut().equals(rut) && usuarios.get(i).contrasenia.equals(contrasenia) )
+            {
+
+                return true ;
+
+            }
+
+
+        }
+
+        return false ;
+    }
+    public void CrearPersona(ArrayList<Usuario>usuarios){
         int id, contFail = 0;
+
         int flag = 0;
-        String Nombre, Rut;
+        String Nombre, Rut , contrasenia ;
+
         //Valdiacion de formato de datos
         System.out.print("Inserte nombre natural:");
         Nombre = entrada.nextLine();
@@ -106,11 +124,15 @@ public class Usuario extends PersonaVirtual {
             System.out.print("Inserte nombre de administrador: ");
             Nombre = entrada.nextLine();
         }
-        if (flag != 1) this.setNombre(Nombre);
+        if (flag == 1)
+        {
+            System.out.println("CREACION FALLIDA");
+            return;
 
+        }
         System.out.print("Inserte su Rut:");
         contFail = 0;
-        flag = 0;
+
         Rut = entrada.nextLine();
         while (!Rut.matches("[0-9]*[-'][0-9]")) {
             contFail++;
@@ -123,54 +145,144 @@ public class Usuario extends PersonaVirtual {
             System.out.print("Inserte su Rut:");
             Rut = entrada.nextLine();
         }
-        if (flag != 1) {
-            setRut(Rut);
+        if (flag == 1)
+        {
+            System.out.println("CREACION FALLIDA");
+            return;
+
         }
+
+        System.out.print("Ingrese nueva contraseña: ");
+        contrasenia = entrada.next();
+        while(!contrasenia.matches("([a-zA-Z]*+[0-9]*+)*")){
+            contFail++;
+            System.out.println("El dato es incorrecto, debe recibir al menos una letra y numero");
+
+            if(contFail == 5) {
+
+                System.out.println("Creacion fallida");
+                flag = 1 ;
+                return  ;
+            }
+            System.out.print("Ingrese nueva contraseña: ");
+            contrasenia = entrada.next();
+        }
+        if (flag == 1)
+        {
+            System.out.println("CREACION FALLIDA");
+            return;
+
+        }
+        contFail = 0;
+        System.out.println("Inserte ciudad donde vive");
+        String ciudad = entrada.nextLine();
+        while(!ciudad.matches("[A-Z][a-z]*") ) {
+            contFail++;
+            System.out.println("Formato incorrecto , ingrese con solo la primera letra mayuscula");
+            if(contFail ==5)
+            {
+
+                System.out.println("Creacion fallida");
+                flag = 1 ;
+                return ;
+            }
+
+            System.out.println("Inserte ciudad donde vive");
+            ciudad = entrada.nextLine();
+        }
+
+        //String nombre , String rut , String ciudad , String contrasenia ){
+        Usuario nuevoUsuario= new Usuario(Nombre , Rut , ciudad , contrasenia );
+        usuarios.add(nuevoUsuario);
     }
 
 
-
-    //Comportamientos y metodos
-    public void MenuUsuario(){
-        int opcion;
-        PuntoReciclaje ptoReciclaje = new PuntoReciclaje();
-        Noticias noticias = new Noticias();
-         if( !ValidarPersona()) return ;
-        //Muestra de opciones del usuario
-        System.out.println("ELIJA UNA OPCION:");
-        System.out.println("1) Puntos de reciclaje cercanos\n2) Presentar noticias\n3) Consultar puntos de reciclaje por ciudad\n4) Presione 0 para salir");
-        System.out.print("OPCION:");
-        opcion = entrada.nextInt();
-        try{
-            switch (opcion){
-                case 0 :
-                    return;
-                case 1 :
-                    ptoReciclaje.PtoReciclajeCercano(this.Ciudad); //Busca puntosR de acuerdo a la ciudad ingresada
-                    break;
-                case 2 :
-                    noticias.PresentarNoticia();
-                    break;
-                case 3 :
-                    System.out.print("Ingrese la ciudad donde desea buscar: ");
-                    String ciudad = entrada.nextLine();
-                    while(!ciudad.matches("[A-Z][a-zA-Z]*")){
-                        System.out.println("- Formato incorrecto. Ingrese solo letras, con la primera mayuscula\n");
-                        System.out.print("Ingrese la ciudad donde desea buscar: ");
-                        ciudad = entrada.nextLine();
-                    }
-                    ptoReciclaje.PtoReciclajeCercano(ciudad); //Busca puntosR de acuerdo a la ciudad ingresada
-                    break;
-                 default :
-                     throw new Exception("No se puede ejecutar esa opcion ");
+ public void menuLogiado()
+ {
+     int opcion ;
+     PuntoReciclaje ptoReciclaje = new PuntoReciclaje();
+     Noticias noticias = new Noticias();
+     System.out.println("ELIJA UNA OPCION:");
+     System.out.println("1) Puntos de reciclaje cercanos\n2) Presentar noticias\n3) Consultar puntos de reciclaje por ciudad\n4) Presione 0 para salir");
+     System.out.print("OPCION:");
+     opcion = entrada.nextInt();
+     try{
+         switch (opcion){
+             case 0 :
+                 return;
+             case 1 :
+                 ptoReciclaje.PtoReciclajeCercano(this.Ciudad); //Busca puntosR de acuerdo a la ciudad ingresada
+                 break;
+             case 2 :
+                 noticias.PresentarNoticia();
+                 break;
+             case 3 :
+                 System.out.print("Ingrese la ciudad donde desea buscar: ");
+                 String ciudad = entrada.nextLine();
+                 while(!ciudad.matches("[A-Z][a-zA-Z]*")){
+                     System.out.println("- Formato incorrecto. Ingrese solo letras, con la primera mayuscula\n");
+                     System.out.print("Ingrese la ciudad donde desea buscar: ");
+                     ciudad = entrada.nextLine();
+                 }
+                 ptoReciclaje.PtoReciclajeCercano(ciudad); //Busca puntosR de acuerdo a la ciudad ingresada
+                 break;
+             default :
+                 throw new Exception("No se puede ejecutar esa opcion ");
 
 
-            }
+         }
 
-        }catch(Exception e)
-        {
+     }catch(Exception e)
+     {
          e.printStackTrace();
 
+     }
+
+ }
+
+
+    //Comportamientos y metodos
+
+    public void MenuUsuario() {
+        int opcion;
+        ArrayList<Usuario> usuariosRegistrados = new ArrayList<Usuario>();
+        Usuario usuarioUtilidad = new Usuario();
+
+        //funcion que llena el arrayList con texto leido csv
+        PuntoReciclaje ptoReciclaje = new PuntoReciclaje();
+        int flag =0 ;
+        Noticias noticias = new Noticias();
+        while(flag!= 1 ) {
+            opcion=0 ;
+        System.out.println("1-Nuevo usuario");
+        System.out.println("2-Usuario existente");
+        System.out.println("0-Salir");
+        opcion = entrada.nextInt();
+
+            try {
+                switch (opcion) {
+                    case 1:
+                        usuarioUtilidad.CrearPersona(usuariosRegistrados);
+                        System.out.println("Usuario creado");
+                        break;
+                    case 2:
+                        if (usuarioUtilidad.ValidarPersona(usuariosRegistrados) ) {
+                            usuarioUtilidad.menuLogiado();
+
+                        }
+                        break;
+
+                    case 0:
+                        flag = 1;
+                    default:
+                        throw new Exception("No se puede ejecutar esa opcion ");
+
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                return;
+            }
         }
 
     }
