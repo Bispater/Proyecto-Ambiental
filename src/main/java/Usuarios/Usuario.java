@@ -3,10 +3,15 @@ package Usuarios;
 import Contenido.Noticias;
 import Contenido.PuntoReciclaje;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 public class Usuario extends PersonaVirtual {
     private String Ciudad;
+    ArrayList<Usuario> usuariosRegistrados;
 
+    String contrasenia ;
+
+    //El login de Usuarios sera mediante el rut y una contrasenia
     Scanner entrada = new Scanner(System.in);
     //Constructor
     public Usuario(){
@@ -24,12 +29,61 @@ public class Usuario extends PersonaVirtual {
 
 
     public boolean ValidarPersona() {
+        int contFail = 0;
+        int flag = 0 ;
+        System.out.println("Inserte nombre");
+        String nombre = entrada.nextLine();
+        while(!nombre.matches("([a-zA-Z]*[ ']+[a-zA-Z]*)*"))
+        {
+            contFail++;
+            if(contFail==5)
+            {
+                System.out.println("Creacion fallida");
+                flag = 1 ;
+                return false ;
+            }
+            System.out.println("El dato es incorrecto, debe escribir solo letras (nombre y apellido separados)");
+            System.out.print("Inserte nombre de administrador: ");
+            nombre = entrada.nextLine();
+        }
+        contFail = 0;
 
-        if(!this.Ciudad.matches("[A-Z][a-zA-Z]*") ) return false ;
+        System.out.println("Inserte rut");
+        String rut = entrada.nextLine();
+        while(!rut.matches("[0-9]*[-'][0-9]"))
+        {
+            contFail++;
+            if(contFail ==5)
+            {
+                System.out.println("Creacion fallida");
+                flag = 1 ;
+                return false ;
+            }
+            System.out.println("Dato incorrecto, debe escribir numeros con guion y digito verificador");
+            System.out.println("Inserte rut");
+             rut = entrada.nextLine();
+        }
+        contFail = 0;
+        System.out.println("Inserte ciudad donde vive");
+        String ciudad = entrada.nextLine();
+        while(!ciudad.matches("[A-Z][a-z]*") ) {
+            contFail++;
+            System.out.println("Formato incorrecto , ingrese con solo la primera letra mayuscula");
+            if(contFail ==5)
+            {
 
-        if(!getRut().matches("[0-9]*[-'][0-9]")) return false ;
+                System.out.println("Creacion fallida");
+                flag = 1 ;
+                return false ;
+            }
 
-        if(!getNombre().matches("([a-zA-Z]*[ ']+[a-zA-Z]*)*")) return false ;
+            System.out.println("Inserte ciudad donde vive");
+            ciudad = entrada.nextLine();
+        }
+
+
+
+
 
         return true ;
 
@@ -81,7 +135,7 @@ public class Usuario extends PersonaVirtual {
         int opcion;
         PuntoReciclaje ptoReciclaje = new PuntoReciclaje();
         Noticias noticias = new Noticias();
-        ValidarPersona();
+         if( !ValidarPersona()) return ;
         //Muestra de opciones del usuario
         System.out.println("ELIJA UNA OPCION:");
         System.out.println("1) Puntos de reciclaje cercanos\n2) Presentar noticias\n3) Consultar puntos de reciclaje por ciudad\n4) Presione 0 para salir");

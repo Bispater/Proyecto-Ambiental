@@ -20,7 +20,7 @@ public class Main {
         CSVManage ob = new CSVManage();
         String[] header = { "Nombre", "Apellido"};
         ob.writeCSV("src/main/resources/CSVTEST.csv", header);
-        ArrayList<Admin>admins = new ArrayList<>();
+
 
 
 
@@ -61,7 +61,7 @@ public class Main {
             }catch(Exception e )
                 {
                     e.printStackTrace();
-                    return;
+
                 }
         }while(true);
     }
