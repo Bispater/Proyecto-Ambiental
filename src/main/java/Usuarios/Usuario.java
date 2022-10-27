@@ -52,7 +52,7 @@ public class Usuario extends PersonaVirtual {
             }
             System.out.println("Dato incorrecto, debe escribir numeros con guion y digito verificador");
             System.out.println("Inserte rut");
-             rut = entrada.nextLine();
+             rut = entrada.next();
         }
         contFail = 0;
 
@@ -69,7 +69,7 @@ public class Usuario extends PersonaVirtual {
                 return false ;
             }
             System.out.print("Ingrese nuevamente la  contraseña: ");
-            contra = entrada.next();
+            contra = entrada.nextLine();
         }
         if( !Buscarenusurios(rut , contra , usuarios))
         {
@@ -108,11 +108,11 @@ public class Usuario extends PersonaVirtual {
         int id, contFail = 0;
 
         int flag = 0;
-        String Nombre, Rut , contrasenia ;
+
 
         //Valdiacion de formato de datos
         System.out.print("Inserte nombre natural:");
-        Nombre = entrada.nextLine();
+        String Nombre = entrada.nextLine();
         while (!Nombre.matches("([a-zA-Z]*[ ']+[a-zA-Z]*)*")) {
             contFail++;
             if (contFail == 5) {
@@ -121,7 +121,7 @@ public class Usuario extends PersonaVirtual {
                 return;
             }
             System.out.println("El dato es incorrecto, debe escribir solo letras (nombre y apellido separados)");
-            System.out.print("Inserte nombre de administrador: ");
+            System.out.print("Inserte nombre nuavemente ");
             Nombre = entrada.nextLine();
         }
         if (flag == 1)
@@ -132,8 +132,7 @@ public class Usuario extends PersonaVirtual {
         }
         System.out.print("Inserte su Rut:");
         contFail = 0;
-
-        Rut = entrada.nextLine();
+        String  Rut = entrada.next();
         while (!Rut.matches("[0-9]*[-'][0-9]")) {
             contFail++;
             if (contFail == 5) {
@@ -143,7 +142,7 @@ public class Usuario extends PersonaVirtual {
             }
             System.out.println("Dato incorrecto, debe escribir numeros con guion y digito verificador");
             System.out.print("Inserte su Rut:");
-            Rut = entrada.nextLine();
+            Rut = entrada.next();
         }
         if (flag == 1)
         {
@@ -153,7 +152,7 @@ public class Usuario extends PersonaVirtual {
         }
 
         System.out.print("Ingrese nueva contraseña: ");
-        contrasenia = entrada.next();
+        String contrasenia = entrada.next();
         while(!contrasenia.matches("([a-zA-Z]*+[0-9]*+)*")){
             contFail++;
             System.out.println("El dato es incorrecto, debe recibir al menos una letra y numero");
@@ -267,9 +266,11 @@ public class Usuario extends PersonaVirtual {
                         break;
                     case 2:
                         if (usuarioUtilidad.ValidarPersona(usuariosRegistrados) ) {
+                            System.out.println("Usuario logeado correctamente");
                             usuarioUtilidad.menuLogiado();
 
                         }
+                        else System.out.println("Rut o contraseña incorrecta vuelva a intentar");
                         break;
 
                     case 0:
