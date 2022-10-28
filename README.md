@@ -58,3 +58,6 @@ Prueba :
     CONSOLA: 
 	- Para administrador el id es 4 y la contraseña es 123, ambos de tipo entero. 
 	- Para ingresar como usuario se debe registrar antes de ver las opciones disponibles. 
+
+El programa fue ejecutado en IntelliJ IDEA, usando una versión de SDK Versión 19.
+
