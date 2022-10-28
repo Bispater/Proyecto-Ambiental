@@ -5,14 +5,19 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class AgregarPuntoReciclaje extends Frame implements ActionListener {
 
-    JTextField direccion, tipoReciclaje, ciudad, capacidad;
+    JTextField direccion;
+    JTextField tipoReciclaje;
+    JTextField ciudad;
+    JTextField capacidad;
     JLabel text, direccion1, tipoReciclaje1, ciudad1, capacidad1;;
     JButton volver, aceptar;
     int centrar;
     int ancho, alto, anchoLabel;
+    ArrayList<PuntoReciclaje> puntosCreados = new ArrayList<>();
 
 
     public void agregarPunto(){
@@ -83,29 +88,55 @@ public class AgregarPuntoReciclaje extends Frame implements ActionListener {
             h.menuPrincipal();
         }
         if (e.getSource() == aceptar){
+            System.out.println("crear objeto punto");
             JFrame frame = new JFrame();
             frame.setSize(100, 100);
-            crearPuntoReciclaje();
-            JOptionPane.showMessageDialog(frame, "Punto creado con exito!");
+            if (crearPuntoReciclaje()) {
+                JOptionPane.showMessageDialog(frame, "Punto creado con exito!");
+            }else {
+                JOptionPane.showMessageDialog(frame, "Error al crear Punto Reciclaje!");
+            }
             setVisible(false);
             MenuAdministrador h = new MenuAdministrador();
             h.menuPrincipal();
         }
     }
 
-    public void crearPuntoReciclaje() {
+    public boolean crearPuntoReciclaje() {
         int periodoVaciado = 0;
         int id = 1;
-        String str = capacidad.toString();
-        Integer capacity = Integer.valueOf(str);
+        int capacity = 2;
         PuntoReciclaje puntos = new PuntoReciclaje(
-                 direccion.getText() ,
-                 tipoReciclaje.getText() ,
-                 capacity,
-                 periodoVaciado ,
-                 ciudad.getText() ,
-                 id
+             direccion.getText() ,
+             tipoReciclaje.getText() ,
+             capacity,
+             periodoVaciado ,
+             ciudad.getText() ,
+             id
         );
+        if (puntos.guardarPuntoReciclaje(puntos)) {
+            puntosCreados.add(puntos);
+            for(int i= 0 ; i< puntosCreados.size() ; i ++) {
+                System.out.println("================PUNTO DE RECICLAJE "+(i+1)+"==================");
+                System.out.println("Tipo de reciclaje: "+puntosCreados.get(i).getTipoReciclaje());
+                System.out.println("Direccion: "+puntosCreados.get(i).getDireccion());
+                System.out.println("Capacidad del punto de reciclaje: "+puntosCreados.get(i).getCapacidad()+" kilogramos.");
+                System.out.println("Identificador del punto de reciclaje: "+puntosCreados.get(i).getId());
+            }
+            return true;
+        };
+        return false;
+    }
+
+    public void mostrarPuntoReciclajeCreado(){
+        for(int i= 0 ; i< puntosCreados.size() ; i ++) {
+            System.out.println("================PUNTO DE RECICLAJE "+(i+1)+"==================");
+            System.out.println("Tipo de reciclaje: "+puntosCreados.get(i).getTipoReciclaje());
+            System.out.println("Direccion: "+puntosCreados.get(i).getDireccion());
+            System.out.println("Capacidad del punto de reciclaje: "+puntosCreados.get(i).getCapacidad()+" kilogramos.");
+            System.out.println("Identificador del punto de reciclaje: "+puntosCreados.get(i).getId());
+        }
+
     }
 }
 
