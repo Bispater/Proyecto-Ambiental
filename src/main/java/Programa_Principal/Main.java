@@ -3,6 +3,7 @@ import Manejo_Csv.CSVFile;
 import Manejo_Csv.CSVManage;
 import Usuarios.Admin;
 import Usuarios.Usuario;
+import Vistas.MainInterface;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -13,20 +14,26 @@ public class Main {
     public static void main(String[] args){
         int opcion;
         int value = 0;
-        // LECTURA ARCHIVO
 
+
+        // LECTURA ARCHIVO
         CSVFile archivo = new CSVFile();
         archivo.leerArchivo("src/main/resources/CSVTEST.csv");
+
+        //ESCRIBIR EN ARCHIVO CSV
+        /*
         CSVManage ob = new CSVManage();
         String[] header = { "Nombre", "Apellido"};
         ob.writeCSV("src/main/resources/CSVTEST.csv", header);
-
-
+        */
 
 
         entrada = new Scanner(System.in);
 
         do{
+            //INICIA LA INTERFAZ CON LAS OPCIONES ANTES HECHAS POR CONSOLA.
+            new MainInterface();
+            /* SE COMENTAN LAS OPCIONES DE CONSOLA
             System.out.println("============================");
             System.out.println("1.- ADMINISTRADOR");
             System.out.println("2.- USUARIO NORMAL");
@@ -34,8 +41,9 @@ public class Main {
             System.out.println("============================");
             System.out.print("ESCOGA UNA OPCION: ");
             opcion=entrada.nextInt();
-
+            */
             //Prueba
+            /*
             Admin adminDefecto = new Admin(); //Admin por defecto para poder ingresar
 
             Usuario usuarioDefecto = new Usuario();
@@ -63,6 +71,8 @@ public class Main {
                     e.printStackTrace();
 
                 }
+                */
+
         }while(true);
     }
 }

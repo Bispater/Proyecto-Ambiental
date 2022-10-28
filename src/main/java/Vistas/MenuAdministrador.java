@@ -1,5 +1,7 @@
 package Vistas;
 
+import Usuarios.Admin;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -15,6 +17,9 @@ public class MenuAdministrador extends Frame implements ActionListener {
     JButton agregarNoticia, mostrarNoticias, eliminarNoticia;
     //FUNCIONES ADMINISTRADOR
     JButton agregarAdmin, cambiarContrasenia, cerrarSesion;
+
+    Admin adminDefecto = new Admin();
+
     public void menuPrincipal () {
 
         //CONFIGURACIÓN PANTALLA
@@ -94,9 +99,11 @@ public class MenuAdministrador extends Frame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == cerrarSesion){
+            setVisible(false);
             new MainInterface();
         }
         if(e.getSource() == agregarPuntosReciclaje){
+            setVisible(false);
             AgregarPuntoReciclaje f = new AgregarPuntoReciclaje();
             f.agregarPunto();
         }

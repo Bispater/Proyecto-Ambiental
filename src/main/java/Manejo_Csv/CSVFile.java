@@ -18,7 +18,7 @@ public class CSVFile {
             lector = new BufferedReader(new FileReader(nombreArchivo));
             while ((linea = lector.readLine()) != null) {
                 partes = linea.split(",");
-                imprimirLinea();
+                //imprimirLinea();
                 System.out.println();
             }
             lector.close();

@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class AdminInterface extends Frame implements ActionListener {
+public class AdminLogin extends Frame implements ActionListener {
 
     JTextField user, password;
     JLabel text, input1, input2;
@@ -17,11 +17,13 @@ public class AdminInterface extends Frame implements ActionListener {
         //CONFIGURACIÓN PANTALLA
         ancho = 700;
         alto = 700;
-        anchoLabel = 300;
-        centrar = (ancho / 2) - (anchoLabel / 2);
         setSize(ancho,alto);
         setLayout(null);
         setVisible(true);
+
+        //PROPIEDAD PARA CENTRAR HORIZONTAL
+        anchoLabel = 300;
+        centrar = (ancho / 2) - (anchoLabel / 2);
 
         // BTN VOLVER
         volver = new JButton("Volver");
@@ -33,10 +35,6 @@ public class AdminInterface extends Frame implements ActionListener {
         text = new JLabel("Bienvenida, ingresa los datos para iniciar sesión : ");
         text.setBounds(centrar,200, 400,20);
         add(text);
-
-        //PROPIEDAD PARA CENTRAR HORIZONTAL
-        anchoLabel = 400;
-        centrar = (ancho / 2) - (anchoLabel / 2);
 
         //INPUT USUARIO
         input1 = new JLabel("Usuario:");
@@ -74,18 +72,17 @@ public class AdminInterface extends Frame implements ActionListener {
     }
 
     public void validarIngreso(){
-        System.out.println("Validando Ingreso...");
-
+        System.out.println("VALIDANDO INGRESO ...");
         if ((this.user.getText().equals("user"))&&(this.password.getText().equals("admin"))){
-            System.out.println("validación exitosa");
+            System.out.println("VALIDACIÓN EXITOSA");
             setVisible(false);
             JFrame frame = new JFrame();
             frame.setSize(100, 100);
             MenuAdministrador h = new MenuAdministrador();
             h.menuPrincipal();
-            JOptionPane.showMessageDialog(frame, "Ingreso Exitoso");
+            JOptionPane.showMessageDialog(frame, "¡Ingreso Exitoso!");
         }else {
-            System.out.println("validación fallida");
+            System.out.println("VALIDACIÓN FALLIDA ...");
             JFrame frame = new JFrame();
             frame.setSize(100, 100);
             JOptionPane.showMessageDialog(frame, "Uno o más datos son incorrectos");
