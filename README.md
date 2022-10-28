@@ -48,8 +48,13 @@ CLASE PUNTORECICLAJE
 	  sus métodos.
 
 
-Vistas : 
-	- Para el inicio de sesión (interfaz) en modo administrador el usuario por defecto es "user" y la contraseña es 
+Prueba : 
+    INTERFAZ: 
+	- Para el inicio de sesión en la interfaz en modo administrador el usuario por defecto es "user" y la contraseña es 
 	  "admin", esto instanciará un administrador por defecto el cual contiene un nombre "admin"; un run, que por defecto
-	  será "00000000-0"; una contraseña "admin"; y una id "1" de tipo entero.
-    - El inicio de sesión en modo de Usuario no está disponible por el momento.
+	  será "00000000-0"; una contraseña "admin"; y una id "1" de tipo entero. El menú de este administrador está
+	  limitado a agregar punto de reciclaje.
+        - El inicio de sesión en modo de Usuario no está disponible por el momento.
+    CONSOLA: 
+	- Para administrador el id es 4 y la contraseña es 123, ambos de tipo entero. 
+	- Para ingresar como usuario se debe registrar antes de ver las opciones disponibles. 
