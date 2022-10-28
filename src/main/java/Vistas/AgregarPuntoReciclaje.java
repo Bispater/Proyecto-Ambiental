@@ -44,7 +44,6 @@ public class AgregarPuntoReciclaje extends Frame implements ActionListener {
         direccion.setBounds(centrar,130, 400,40);
         add(direccion);
 
-
         //INPUT TIPO RECICLAJE
         tipoReciclaje1 = new JLabel("Tipo Reciclaje:");
         tipoReciclaje1.setBounds(centrar+3,180, 400,20);
@@ -78,14 +77,35 @@ public class AgregarPuntoReciclaje extends Frame implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == volver){
+            setVisible(false);
+            MenuAdministrador h = new MenuAdministrador();
+            h.menuPrincipal();
+        }
         if (e.getSource() == aceptar){
             JFrame frame = new JFrame();
             frame.setSize(100, 100);
-            PuntoReciclaje puntos = new PuntoReciclaje();
+            crearPuntoReciclaje();
             JOptionPane.showMessageDialog(frame, "Punto creado con exito!");
             setVisible(false);
-            new AdminInterface();
+            MenuAdministrador h = new MenuAdministrador();
+            h.menuPrincipal();
         }
+    }
+
+    public void crearPuntoReciclaje() {
+        int periodoVaciado = 0;
+        int id = 1;
+        String str = capacidad.toString();
+        Integer capacity = Integer.valueOf(str);
+        PuntoReciclaje puntos = new PuntoReciclaje(
+                 direccion.getText() ,
+                 tipoReciclaje.getText() ,
+                 capacity,
+                 periodoVaciado ,
+                 ciudad.getText() ,
+                 id
+        );
     }
 }
 

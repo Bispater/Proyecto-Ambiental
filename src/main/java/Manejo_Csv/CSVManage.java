@@ -15,7 +15,7 @@ public class CSVManage {
             BufferedWriter bufferedWriter = new BufferedWriter(writer);
             PrintWriter printWriter = new PrintWriter(bufferedWriter);
             printWriter.println(header[0] + ";" + header[1]);
-            System.out.println(header);
+            //System.out.println(header);
             printWriter.flush();
             printWriter.close();
 
