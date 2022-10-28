@@ -220,4 +220,9 @@ public class PuntoReciclaje {
         }
         return true ;
     }
+
+    public boolean guardarPuntoReciclaje(PuntoReciclaje punto){
+        puntosReciclaje.add(punto); //Se agrega el punto de reciclaje creado a la lista
+        return true;
+    }
 }

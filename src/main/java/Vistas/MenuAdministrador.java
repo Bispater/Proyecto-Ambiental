@@ -1,5 +1,6 @@
 package Vistas;
 
+import Contenido.PuntoReciclaje;
 import Usuarios.Admin;
 
 import javax.swing.*;
@@ -19,6 +20,7 @@ public class MenuAdministrador extends Frame implements ActionListener {
     JButton agregarAdmin, cambiarContrasenia, cerrarSesion;
 
     Admin adminDefecto = new Admin();
+    AgregarPuntoReciclaje f = new AgregarPuntoReciclaje();
 
     public void menuPrincipal () {
 
@@ -104,8 +106,11 @@ public class MenuAdministrador extends Frame implements ActionListener {
         }
         if(e.getSource() == agregarPuntosReciclaje){
             setVisible(false);
-            AgregarPuntoReciclaje f = new AgregarPuntoReciclaje();
             f.agregarPunto();
+        }
+        if(e.getSource() == mostrarPuntosReciclaje){
+            setVisible(false);
+            f.mostrarPuntoReciclajeCreado();
         }
 
         JFrame frame = new JFrame();

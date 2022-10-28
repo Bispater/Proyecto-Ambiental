@@ -33,7 +33,6 @@ public class Main {
         do{
             //INICIA LA INTERFAZ CON LAS OPCIONES ANTES HECHAS POR CONSOLA.
             new MainInterface();
-            /* SE COMENTAN LAS OPCIONES DE CONSOLA
             System.out.println("============================");
             System.out.println("1.- ADMINISTRADOR");
             System.out.println("2.- USUARIO NORMAL");
@@ -41,9 +40,8 @@ public class Main {
             System.out.println("============================");
             System.out.print("ESCOGA UNA OPCION: ");
             opcion=entrada.nextInt();
-            */
             //Prueba
-            /*
+
             Admin adminDefecto = new Admin(); //Admin por defecto para poder ingresar
 
             Usuario usuarioDefecto = new Usuario();
@@ -71,7 +69,6 @@ public class Main {
                     e.printStackTrace();
 
                 }
-                */
 
         }while(true);
     }
