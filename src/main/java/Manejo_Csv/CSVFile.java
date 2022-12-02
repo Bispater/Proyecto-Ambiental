@@ -3,9 +3,9 @@ package Manejo_Csv;
 import Usuarios.Admin;
 
 import javax.swing.*;
-import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class CSVFile {
 
@@ -13,12 +13,33 @@ public class CSVFile {
     private String linea;
     private String partes[] = null;
 
+    public void writeCSV(String file, String[] header ){
+        try {
+            /*
+            This function write into CSV file. Receive a string with name file, an index and a number that will be saved.
+             */
+            System.out.println(file);
+            FileWriter writer = new FileWriter(file, true);
+            BufferedWriter bufferedWriter = new BufferedWriter(writer);
+            PrintWriter printWriter = new PrintWriter(bufferedWriter);
+            printWriter.println(header[0] + ";" + header[1]);
+            //System.out.println(header);
+            printWriter.flush();
+            printWriter.close();
+
+            //JOptionPane.showMessageDialog(null, "File Saved");
+        }catch (IOException e){
+            System.out.println(e);
+        }
+    }
+
     public void leerArchivo(String nombreArchivo) {
         try {
             lector = new BufferedReader(new FileReader(nombreArchivo));
             while ((linea = lector.readLine()) != null) {
-                partes = linea.split(",");
-                //imprimirLinea();
+                String str = linea;
+                partes = str.split("[;]", 0);
+                imprimirLinea(partes);
                 System.out.println();
             }
             lector.close();
@@ -29,7 +50,7 @@ public class CSVFile {
         }
     }
 
-    public void imprimirLinea() {
+    public void imprimirLinea(String partes[]) {
         for (int i = 0; i < partes.length; i++) {
             System.out.print(partes[i] + "  |  ");
         }
@@ -63,4 +84,6 @@ public class CSVFile {
         return administradores ;
     }
 */
+
+
 }

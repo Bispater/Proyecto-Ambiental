@@ -5,6 +5,7 @@ import Usuarios.Admin;
 import Usuarios.Usuario;
 import Vistas.MainInterface;
 
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -14,12 +15,12 @@ public class Main {
     public static void main(String[] args){
         int opcion;
         int value = 0;
+        FileReader archCSV = null;
 
 
         // LECTURA ARCHIVO
         CSVFile archivo = new CSVFile();
         archivo.leerArchivo("src/main/resources/CSVTEST.csv");
-
         //ESCRIBIR EN ARCHIVO CSV
         /*
         CSVManage ob = new CSVManage();
@@ -32,7 +33,7 @@ public class Main {
 
         do{
             //INICIA LA INTERFAZ CON LAS OPCIONES ANTES HECHAS POR CONSOLA.
-            new MainInterface();
+            //new MainInterface();
             System.out.println("============================");
             System.out.println("1.- ADMINISTRADOR");
             System.out.println("2.- USUARIO NORMAL");
